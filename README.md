@@ -5,7 +5,7 @@ Landing page corporativa para BRICK, empresa peruana de ingeniería, arquitectur
 ## Stack Técnico
 
 - **HTML5** semántico
-- **Tailwind CSS** (CDN)
+- **Tailwind CSS** (CDN) + config modular
 - **Alpine.js** para interactividad
 - **Font Awesome** iconos
 - **Google Fonts** (Inter)
@@ -13,38 +13,40 @@ Landing page corporativa para BRICK, empresa peruana de ingeniería, arquitectur
 ## Estructura
 
 ```
+web/
 ├── index.html          # Single page principal
+├── css/
+│   └── styles.css      # Estilos personalizados
+├── js/
+│   └── tailwind.config.js  # Config de Tailwind
 └── assets/
     ├── logo.png
     ├── logo-v2.png
     ├── logo-v3.png
-    ├── hero-video.mp4  # Video de fondo hero
-    └── projects/       # Imágenes del portafolio
-        ├── bbva-comedor.jpg
-        ├── bbva-becs.jpg
-        ├── bbva-sotano.jpg
-        ├── centenario-oficinas.jpg
-        └── pluz-energia.jpg
+    ├── hero-video.mp4      # NO en git (ver .gitignore)
+    └── projects/           # NO en git (ver .gitignore)
+        └── *.jpg
 ```
 
-## Secciones
+## Archivos excluidos de Git
 
-1. **Hero** - Video de fondo con CTA
-2. **Estadísticas** - Años, proyectos, m² construidos
-3. **Nosotros** - Misión, visión y valores
-4. **Servicios** - Diseño, construcción, instalaciones
-5. **Proyectos** - Portafolio con filtros
-6. **Certificaciones** - SGS, HODELPE, Pacto Mundial, ESR
-7. **Contacto** - Formulario y datos de contacto
-8. **Footer** - Links y créditos
+El `.gitignore` excluye multimedia pesada:
+- `assets/hero-video.mp4` (~11MB)
+- `assets/projects/` (~3.5MB de imágenes)
+
+Estos archivos se mantienen solo en el servidor y en local.
 
 ## Deploy
 
-El sitio se despliega en el servidor de Enigma:
-
 ```bash
-ssh bricksac@serverenigma.com
-# Destino: ~/public_html/
+# 1. Comprimir (sin multimedia)
+tar -czvf deploy.tar.gz --exclude='.git' --exclude='assets/hero-video.mp4' --exclude='assets/projects' .
+
+# 2. Subir al servidor
+scp deploy.tar.gz bricksac@serverenigma.com:~/
+
+# 3. Descomprimir en servidor
+ssh bricksac@serverenigma.com "cd public_html && tar -xzvf ~/deploy.tar.gz && rm ~/deploy.tar.gz"
 ```
 
 ## Datos de la Empresa
@@ -56,16 +58,6 @@ ssh bricksac@serverenigma.com
 - **Teléfonos:** 942 115 898 | (01) 602 6936
 - **Email:** administracion@bricksac.com
 - **Web:** [bricksac.com](https://bricksac.com)
-
-## Desarrollo
-
-```bash
-# Servidor local
-python3 -m http.server 8080
-
-# Abrir en navegador
-open http://localhost:8080
-```
 
 ---
 
