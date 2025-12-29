@@ -13,91 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="assets/logo-v3.png">
+    <link rel="icon" type="image/png" href="assets/logos/logo-v3.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brick: {
-                            red: '#E31E24',
-                            dark: '#1A1A1A',
-                            gray: '#F3F4F6',
-                            light: '#FFFFFF'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
+    <script src="js/tailwind.config.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <style>
-        #hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Opacidad aumentada */
-            z-index: 0;
-        }
-
-        .text-shadow {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Animación Rainbow para Enigma Developers */
-        @keyframes rainbow-gradient {
-            0% {
-                background: linear-gradient(90deg, #B31F88, #3E3C90);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            50% {
-                background: linear-gradient(90deg, #3E3C90, #B31F88);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            100% {
-                background: linear-gradient(90deg, #B31F88, #3E3C90);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-        }
-
-        .enigma-link {
-            position: relative;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .enigma-link:hover {
-            animation: rainbow-gradient 2s ease-in-out infinite;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body class="font-sans text-gray-800 antialiased" x-data="{ scrolled: false, mobileMenu: false }"
@@ -107,7 +29,7 @@
         class="fixed w-full top-0 z-50 transition-all duration-300 min-h-[90px] flex items-center">
         <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center w-full">
             <a href="#" class="flex items-center gap-2 group">
-                <img src="assets/logo-v3.png" alt="BRICK Logo" class="h-20 w-auto object-contain rounded-lg" style="max-width: 110px;">
+                <img src="assets/logos/logo-v3.png" alt="BRICK Logo" class="h-20 w-auto object-contain rounded-lg" style="max-width: 110px;">
             </a>
 
             <nav class="hidden md:flex gap-8 items-center">
@@ -154,7 +76,7 @@
 
     <section id="inicio" class="relative h-screen flex items-end justify-center text-center px-4 overflow-hidden pb-28">
         <video autoplay loop muted playsinline id="hero-video">
-            <source src="assets/hero-video.mp4" type="video/mp4">
+            <source src="assets/media/hero-video.mp4" type="video/mp4">
             Tu navegador no soporta videos HTML5.
         </video>
         <div class="hero-overlay"></div>
@@ -204,7 +126,7 @@
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="lg:w-1/2 relative">
                     <div class="absolute -top-4 -left-4 w-24 h-24 bg-gray-100 rounded-full z-0"></div>
-                    <img src="assets/projects/pluz-energia.jpg"
+                    <img src="assets/media/projects/pluz-energia.jpg"
                         alt="Equipo Brick SAC"
                         class="rounded-lg shadow-2xl relative z-10 w-full object-cover h-[500px]">
                     <div
@@ -333,7 +255,7 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
-                    <img src="assets/projects/bbva-comedor.jpg"
+                    <img src="assets/media/projects/bbva-comedor.jpg"
                         alt="BBVA Comedor"
                         class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
                     <div
@@ -347,7 +269,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
-                    <img src="assets/projects/centenario-oficinas.jpg"
+                    <img src="assets/media/projects/centenario-oficinas.jpg"
                         alt="Grupo Centenario"
                         class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
                     <div
@@ -361,7 +283,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
-                    <img src="assets/projects/pluz-energia.jpg"
+                    <img src="assets/media/projects/pluz-energia.jpg"
                         alt="Pluz Energia"
                         class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
                     <div
@@ -374,7 +296,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
-                    <img src="assets/projects/bbva-becs.jpg"
+                    <img src="assets/media/projects/bbva-becs.jpg"
                         alt="BBVA BECS" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
@@ -386,7 +308,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
-                    <img src="assets/projects/bbva-sotano.jpg"
+                    <img src="assets/media/projects/bbva-sotano.jpg"
                         alt="Remodelación Sótano"
                         class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
                     <div
@@ -556,7 +478,7 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-1 md:col-span-1">
                     <div class="flex items-center gap-2 mb-4">
-                        <img src="assets/logo-v3.png" alt="BRICK Logo" class="h-24 w-auto object-contain rounded-lg"
+                        <img src="assets/logos/logo-v3.png" alt="BRICK Logo" class="h-24 w-auto object-contain rounded-lg"
                             style="max-width: 150px;">
                     </div>
                     <p class="text-gray-500 text-sm mb-4">

@@ -1,0 +1,14 @@
+# Multimedia pesada (no subir a GitHub)
+assets/media/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Archivos de Mac
+._*
