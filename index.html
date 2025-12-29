@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRICK Proyectos & Construcción S.A.C. | Ingeniería y Arquitectura</title>
+    <meta name="description"
+        content="Más de 23 años de experiencia en arquitectura, ingeniería y construcción en Perú. Especialistas en el sector comercial e industrial.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/logo-v3.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brick: {
+                            red: '#E31E24',
+                            dark: '#1A1A1A',
+                            gray: '#F3F4F6',
+                            light: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        #hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Opacidad aumentada */
+            z-index: 0;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animación Rainbow para Enigma Developers */
+        @keyframes rainbow-gradient {
+            0% {
+                background: linear-gradient(90deg, #B31F88, #3E3C90);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            50% {
+                background: linear-gradient(90deg, #3E3C90, #B31F88);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            100% {
+                background: linear-gradient(90deg, #B31F88, #3E3C90);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+        }
+
+        .enigma-link {
+            position: relative;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .enigma-link:hover {
+            animation: rainbow-gradient 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 antialiased" x-data="{ scrolled: false, mobileMenu: false }"
+    @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'"
+        class="fixed w-full top-0 z-50 transition-all duration-300 min-h-[90px] flex items-center">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center w-full">
+            <a href="#" class="flex items-center gap-2 group">
+                <img src="assets/logo-v3.png" alt="BRICK Logo" class="h-20 w-auto object-contain rounded-lg" style="max-width: 110px;">
+            </a>
+
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="#inicio"
+                    :class="scrolled ? 'text-gray-700 hover:text-brick-red' : 'text-gray-200 hover:text-white'"
+                    class="text-sm font-semibold uppercase tracking-wide transition">Inicio</a>
+                <a href="#nosotros"
+                    :class="scrolled ? 'text-gray-700 hover:text-brick-red' : 'text-gray-200 hover:text-white'"
+                    class="text-sm font-semibold uppercase tracking-wide transition">Nosotros</a>
+                <a href="#servicios"
+                    :class="scrolled ? 'text-gray-700 hover:text-brick-red' : 'text-gray-200 hover:text-white'"
+                    class="text-sm font-semibold uppercase tracking-wide transition">Servicios</a>
+                <a href="#proyectos"
+                    :class="scrolled ? 'text-gray-700 hover:text-brick-red' : 'text-gray-200 hover:text-white'"
+                    class="text-sm font-semibold uppercase tracking-wide transition">Proyectos</a>
+                <a href="#contacto"
+                    class="bg-brick-red hover:bg-red-700 text-white px-5 py-2 rounded-full font-bold text-sm transition shadow-lg transform hover:-translate-y-0.5">
+                    Contáctanos
+                </a>
+            </nav>
+
+            <button @click="mobileMenu = !mobileMenu" :class="scrolled ? 'text-brick-dark' : 'text-white'"
+                class="md:hidden text-3xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+            class="md:hidden bg-white shadow-xl absolute top-full left-0 w-full border-t border-gray-100">
+            <div class="flex flex-col p-6 gap-4">
+                <a @click="mobileMenu = false" href="#inicio"
+                    class="text-brick-dark font-semibold hover:text-brick-red">Inicio</a>
+                <a @click="mobileMenu = false" href="#nosotros"
+                    class="text-brick-dark font-semibold hover:text-brick-red">Nosotros</a>
+                <a @click="mobileMenu = false" href="#servicios"
+                    class="text-brick-dark font-semibold hover:text-brick-red">Servicios</a>
+                <a @click="mobileMenu = false" href="#proyectos"
+                    class="text-brick-dark font-semibold hover:text-brick-red">Proyectos</a>
+                <a @click="mobileMenu = false" href="#contacto" class="text-brick-red font-bold">Contacto</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative h-screen flex items-end justify-center text-center px-4 overflow-hidden pb-28">
+        <video autoplay loop muted playsinline id="hero-video">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="relative z-10 max-w-4xl mx-auto mt-16">
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+                "La arquitectura comienza cuando se colocan dos ladrillos juntos con esmero"
+                <br><span class="text-sm text-gray-400 mt-2 block">- Ludwig Mies Van der Rohe</span>
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#proyectos"
+                    class="bg-brick-red hover:bg-red-700 text-white px-6 py-3 md:px-8 md:py-4 rounded font-bold text-sm md:text-base transition shadow-xl border-2 border-brick-red">
+                    Ver Proyectos
+                </a>
+                <a href="#contacto"
+                    class="bg-transparent hover:bg-white hover:text-brick-dark text-white px-6 py-3 md:px-8 md:py-4 rounded font-bold text-sm md:text-base transition border-2 border-white">
+                    Solicitar Cotización
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#nosotros" class="text-white text-2xl opacity-70 hover:opacity-100 transition">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-brick-dark py-12 border-b-4 border-brick-red">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-3 gap-8 text-center text-white">
+            <div class="p-4">
+                <div class="text-4xl md:text-5xl font-black text-brick-red mb-2">24+</div>
+                <div class="text-sm text-gray-400 uppercase tracking-widest">Años de Trayectoria</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl md:text-5xl font-black text-brick-red mb-2">150+</div>
+                <div class="text-sm text-gray-400 uppercase tracking-widest">Proyectos Ejecutados</div>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl md:text-5xl font-black text-brick-red mb-2">60k</div>
+                <div class="text-sm text-gray-400 uppercase tracking-widest">m² Construidos/Remodelados</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-gray-100 rounded-full z-0"></div>
+                    <img src="assets/projects/pluz-energia.jpg"
+                        alt="Equipo Brick SAC"
+                        class="rounded-lg shadow-2xl relative z-10 w-full object-cover h-[500px]">
+                    <div
+                        class="absolute -bottom-6 -right-6 bg-brick-red text-white p-6 rounded shadow-lg z-20 max-w-xs hidden md:block">
+                        <p class="font-bold text-lg">Consolidándonos como un aliado confiable para las principales
+                            empresas del país.</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h4 class="text-brick-red font-bold uppercase tracking-widest mb-2">¿Quiénes Somos?</h4>
+                    <h2 class="text-3xl md:text-4xl font-black text-brick-dark mb-6">Excelencia en Ingeniería y
+                        Construcción desde 2002</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-lg">
+                        En <span class="font-bold text-brick-dark">BRICK Proyectos & Construcción S.A.C.</span> (RUC:
+                        20505099584) contamos con más de dos décadas desarrollando proyectos integrales. Nuestra pasión
+                        es transformar espacios y ejecutar obras que generen valor, seguridad y eficiencia para nuestros
+                        clientes.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-brick-red hover:shadow-md transition">
+                            <h3 class="font-bold text-xl mb-3 text-brick-dark"><i
+                                    class="fas fa-bullseye text-brick-red mr-2"></i> Misión</h3>
+                            <p class="text-sm text-gray-600">Satisfacer las necesidades de nuestros clientes brindando
+                                servicios de calidad en arquitectura, ingeniería y construcción, logrando operaciones
+                                exitosas.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-brick-red hover:shadow-md transition">
+                            <h3 class="font-bold text-xl mb-3 text-brick-dark"><i
+                                    class="fas fa-eye text-brick-red mr-2"></i> Visión</h3>
+                            <p class="text-sm text-gray-600">Ser reconocidos como líderes en el mercado, estableciendo
+                                relaciones comerciales duraderas y siendo un aliado estratégico en el logro eficaz de
+                                proyectos.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex gap-4 flex-wrap">
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-full text-sm font-semibold">Integridad</span>
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-full text-sm font-semibold">Compromiso</span>
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-full text-sm font-semibold">Eficiencia</span>
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-full text-sm font-semibold">Responsabilidad
+                            Social</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h4 class="text-brick-red font-bold uppercase tracking-widest mb-2">Lo que hacemos</h4>
+                <h2 class="text-3xl md:text-4xl font-black text-brick-dark mb-4">Soluciones Integrales para el Sector
+                    Comercial e Industrial</h2>
+                <div class="h-1 w-20 bg-brick-red mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group">
+                    <div
+                        class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-brick-red transition-colors">
+                        <i class="fas fa-drafting-compass text-2xl text-brick-red group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brick-dark mb-4">Diseño y Arquitectura</h3>
+                    <ul class="text-gray-600 space-y-2 text-sm">
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Diseño Arquitectónico</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Diseño de Interiores y Mobiliario</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Diseño y Modelación 3D</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Levantamiento Topográfico</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-brick-red opacity-5 rounded-bl-full"></div>
+                    <div
+                        class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-brick-red transition-colors">
+                        <i class="fas fa-hard-hat text-2xl text-brick-red group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brick-dark mb-4">Construcción y Obras Civiles</h3>
+                    <ul class="text-gray-600 space-y-2 text-sm">
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Construcción de Edificios Completos</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Obras Civiles Generales</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Remodelación de Oficinas</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Sistemas Drywall y Acústicos</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group">
+                    <div
+                        class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-brick-red transition-colors">
+                        <i class="fas fa-bolt text-2xl text-brick-red group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brick-dark mb-4">Instalaciones Especializadas</h3>
+                    <ul class="text-gray-600 space-y-2 text-sm">
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Eléctricas y Telecomunicaciones</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Instalaciones Sanitarias y Mecánicas</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Sistemas de Seguridad y CCTV</li>
+                        <li><i class="fas fa-check text-brick-red mr-2"></i>Automatización y Control</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-20 bg-white">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h4 class="text-brick-red font-bold uppercase tracking-widest mb-2">Nuestro Portafolio</h4>
+                    <h2 class="text-3xl md:text-4xl font-black text-brick-dark">Proyectos Recientes</h2>
+                </div>
+                <div class="hidden md:flex gap-4">
+                    <button class="px-4 py-1 text-sm font-bold text-white bg-brick-red rounded">Todos</button>
+                    <button class="px-4 py-1 text-sm font-bold text-gray-500 hover:text-brick-red">Oficinas</button>
+                    <button class="px-4 py-1 text-sm font-bold text-gray-500 hover:text-brick-red">Banca</button>
+                    <button class="px-4 py-1 text-sm font-bold text-gray-500 hover:text-brick-red">Retail</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                    <img src="assets/projects/bbva-comedor.jpg"
+                        alt="BBVA Comedor"
+                        class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <span class="text-brick-red font-bold text-sm mb-1">2026</span>
+                        <h3 class="text-white font-bold text-xl mb-2">Ampliación Comedor BBVA Sede Central</h3>
+                        <p class="text-gray-300 text-sm mb-2">Área: 900 m²</p>
+                        <p class="text-gray-300 text-sm font-light">Ejecución integral de arquitectura y especialidades.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                    <img src="assets/projects/centenario-oficinas.jpg"
+                        alt="Grupo Centenario"
+                        class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <span class="text-brick-red font-bold text-sm mb-1">2026</span>
+                        <h3 class="text-white font-bold text-xl mb-2">Oficinas Modelo Grupo Centenario</h3>
+                        <p class="text-gray-300 text-sm mb-2">Área: 550 m²</p>
+                        <p class="text-gray-300 text-sm font-light">Implementación de espacios corporativos modernos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                    <img src="assets/projects/pluz-energia.jpg"
+                        alt="Pluz Energia"
+                        class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <span class="text-brick-red font-bold text-sm mb-1">2026</span>
+                        <h3 class="text-white font-bold text-xl mb-2">Oficinas Pluz Energía SMP</h3>
+                        <p class="text-gray-300 text-sm mb-2">Área: 650 m²</p>
+                        <p class="text-gray-300 text-sm font-light">Remodelación integral de atención al cliente.</p>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                    <img src="assets/projects/bbva-becs.jpg"
+                        alt="BBVA BECS" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <span class="text-brick-red font-bold text-sm mb-1">2026</span>
+                        <h3 class="text-white font-bold text-xl mb-2">Oficinas BECS BBVA</h3>
+                        <p class="text-gray-300 text-sm mb-2">Área: 600 m²</p>
+                        <p class="text-gray-300 text-sm font-light">Diseño interior y acondicionamiento.</p>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                    <img src="assets/projects/bbva-sotano.jpg"
+                        alt="Remodelación Sótano"
+                        class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 md:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
+                        <h3 class="text-white font-bold text-xl mb-2">Remodelación Sótano 1 BBVA</h3>
+                        <p class="text-gray-300 text-sm mb-2">Sede Central San Isidro</p>
+                        <p class="text-gray-300 text-sm font-light">Zona Hall, Peluquería, Ágora.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 mb-4">Trabajamos con las marcas más importantes</p>
+                <div
+                    class="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <span class="text-xl font-bold text-brick-dark">BCP</span>
+                    <span class="text-xl font-bold text-brick-dark">GRUPO CENTENARIO</span>
+                    <span class="text-xl font-bold text-brick-dark">PLUZ ENERGIA</span>
+                    <span class="text-xl font-bold text-brick-dark">SENATI</span>
+                    <span class="text-xl font-bold text-brick-dark">MAYORSA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-brick-dark py-16 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-8">Nuestras Homologaciones y Compromiso</h2>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-certificate text-4xl text-brick-red mb-2"></i>
+                    <span class="font-bold tracking-wider">SGS DEL PERÚ</span>
+                    <span class="text-xs text-gray-400">Homologado</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-shield-alt text-4xl text-brick-red mb-2"></i>
+                    <span class="font-bold tracking-wider">HODELPE</span>
+                    <span class="text-xs text-gray-400">Certificado</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-globe-americas text-4xl text-brick-red mb-2"></i>
+                    <span class="font-bold tracking-wider">PACTO MUNDIAL</span>
+                    <span class="text-xs text-gray-400">Red Perú</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-hand-holding-heart text-4xl text-brick-red mb-2"></i>
+                    <span class="font-bold tracking-wider">ESR</span>
+                    <span class="text-xs text-gray-400">Empresa Socialmente Responsable</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <div
+                    class="md:w-5/12 bg-brick-dark text-white p-10 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brick-red rounded-bl-full opacity-20"></div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Ponte en contacto</h3>
+                        <p class="text-gray-300 mb-8">Estamos listos para hacer realidad tu próximo proyecto de
+                            ingeniería o construcción.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-brick-red shrink-0">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-sm uppercase text-gray-400">Dirección Legal</h5>
+                                    <p>Av. Benavides Nro. 4883 Int. 701<br>Santiago de Surco, Lima - Perú</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-brick-red shrink-0">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-sm uppercase text-gray-400">Teléfonos</h5>
+                                    <p>942 115 898</p>
+                                    <p>(01) 602 6936</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-brick-red shrink-0">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-sm uppercase text-gray-400">Correo Electrónico</h5>
+                                    <a href="mailto:administracion@bricksac.com"
+                                        class="hover:text-brick-red transition">administracion@bricksac.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <p class="text-sm text-gray-500">Síguenos en:</p>
+                        <div class="flex gap-4 mt-2">
+                            <a href="#"
+                                class="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-brick-red transition"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="#"
+                                class="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-brick-red transition"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-7/12 p-10">
+                    <h3 class="text-2xl font-bold text-brick-dark mb-6">Envíanos un mensaje</h3>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Nombre Completo</label>
+                                <input type="text"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brick-red transition"
+                                    placeholder="Juan Pérez">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Empresa</label>
+                                <input type="text"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brick-red transition"
+                                    placeholder="Nombre de tu empresa">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Correo</label>
+                                <input type="email"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brick-red transition"
+                                    placeholder="juan@empresa.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Teléfono</label>
+                                <input type="tel"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brick-red transition"
+                                    placeholder="999 000 000">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Mensaje</label>
+                            <textarea rows="4"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brick-red transition"
+                                placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-brick-red hover:bg-red-700 text-white font-bold py-4 rounded transition shadow-lg transform hover:-translate-y-1">
+                            ENVIAR MENSAJE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white py-12 border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="assets/logo-v3.png" alt="BRICK Logo" class="h-24 w-auto object-contain rounded-lg"
+                            style="max-width: 150px;">
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">
+                        Desarrollando el Perú a través de infraestructura de calidad desde el 2002.
+                    </p>
+                    <div class="text-xs text-gray-600 font-mono">
+                        RUC: 20505099584<br>
+                        Inicio Activ.: 18/09/2002
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brick-red">Servicios</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Arquitectura</a></li>
+                        <li><a href="#" class="hover:text-white transition">Ingeniería Civil</a></li>
+                        <li><a href="#" class="hover:text-white transition">Construcción</a></li>
+                        <li><a href="#" class="hover:text-white transition">Gestión de Proyectos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brick-red">Enlaces</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#nosotros" class="hover:text-white transition">Sobre Nosotros</a></li>
+                        <li><a href="#proyectos" class="hover:text-white transition">Proyectos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Responsabilidad Social</a></li>
+                        <li><a href="#" class="hover:text-white transition">Trabaja con Nosotros</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-brick-red">Legal</h4>
+                    <p class="text-sm text-gray-400 mb-2">Av. Benavides Nro. 4883 Int. 701<br>Santiago de Surco, Lima
+                    </p>
+                    <p class="text-sm text-gray-400">Tel: (01) 602 6936</p>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 gap-4">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <p>&copy; 2026 BRICK Proyectos & Construcción S.A.C. Todos los derechos reservados.</p>
+                    <span class="hidden md:inline">•</span>
+                    <p>Desarrollado por <a href="https://enigmasac.com" target="_blank" rel="noopener noreferrer"
+                            class="enigma-link text-gray-400 hover:text-white">Enigma Developers SAC</a></p>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white">Política de Privacidad</a>
+                    <a href="#" class="hover:text-white">Términos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
