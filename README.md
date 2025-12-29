@@ -44,15 +44,17 @@ Estos archivos se mantienen solo en el servidor y en local.
 ## Deploy
 
 ```bash
-# 1. Comprimir (sin multimedia pesada)
-tar -czvf deploy.tar.gz --exclude='.git' --exclude='assets/media/hero-video.mp4' .
+# 1. Comprimir (excluyendo multimedia pesada)
+cd web && tar -czvf ../deploy.tar.gz --exclude='.git' --exclude='assets/media' --exclude='assets/projects' --exclude='assets/certifications' .
 
 # 2. Subir al servidor
-scp deploy.tar.gz bricksac@serverenigma.com:~/
+scp ../deploy.tar.gz bricksac@serverenigma.com:~/
 
-# 3. Descomprimir en servidor (usar usuario debian para permisos)
-ssh debian_enim "cd /home/bricksac/public_html && sudo tar -xzvf /home/bricksac/deploy.tar.gz && sudo chown -R bricksac:bricksac . && sudo rm /home/bricksac/deploy.tar.gz"
+# 3. Descomprimir y fijar permisos (usar usuario debian)
+ssh debian_enim "cd /home/bricksac/public_html && sudo tar -xzvf /home/bricksac/deploy.tar.gz && sudo chown -R bricksac:bricksac . && sudo chmod 644 css/*.css js/*.js && sudo rm /home/bricksac/deploy.tar.gz"
 ```
+
+Los archivos multimedia (`assets/media/`, `assets/projects/`, `assets/certifications/`) ya existen en el servidor y no se sobreescriben.
 
 ## Datos de la Empresa
 
