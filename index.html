@@ -157,13 +157,13 @@
 
                     <div class="mt-8 flex gap-4 flex-wrap">
                         <span
-                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold">Integridad</span>
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold hover:shadow-md transition">Integridad</span>
                         <span
-                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold">Compromiso</span>
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold hover:shadow-md transition">Compromiso</span>
                         <span
-                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold">Eficiencia</span>
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold hover:shadow-md transition">Eficiencia</span>
                         <span
-                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold">Responsabilidad
+                            class="px-4 py-2 bg-gray-100 text-brick-dark rounded-lg border-l-4 border-brick-red text-sm font-semibold hover:shadow-md transition">Responsabilidad
                             Social</span>
                     </div>
                 </div>
@@ -232,73 +232,56 @@
 
     <section id="proyectos" class="pt-28 pb-20 bg-white" x-data="projectGallery()">
         <div class="container mx-auto px-6 lg:px-12">
-            <div class="flex justify-between items-end mb-12">
+            <div class="flex flex-col md:flex-row justify-between md:items-end mb-8">
                 <div>
                     <h4 class="text-brick-red font-bold uppercase tracking-widest mb-2">Nuestro Portafolio</h4>
                     <h2 class="text-3xl md:text-4xl font-black text-brick-dark">Proyectos Recientes</h2>
                 </div>
             </div>
 
+            <div class="flex flex-wrap gap-3 mb-10">
+                <template x-for="year in years" :key="year">
+                    <button @click="activeYear = year"
+                        :class="activeYear === year ? 'bg-brick-red text-white' : 'bg-gray-100 text-brick-dark hover:bg-gray-200'"
+                        class="px-5 py-2 rounded-full font-bold text-sm transition" x-text="year"></button>
+                </template>
+            </div>
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(0)">
-                    <img src="assets/projects/bbva-comedor-1.jpg" alt="BBVA Comedor" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>4 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Ampliación Comedor BBVA Sede Central</h3>
-                        <p class="text-gray-300 text-sm font-light">Ejecución integral de arquitectura y especialidades.</p>
+                <template x-for="(project, idx) in filteredProjects" :key="project.id">
+                    <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(project.id)">
+                        <img :src="project.cover" :alt="project.name" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110" loading="lazy">
+                        <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i><span x-text="project.images.length"></span> fotos</div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                            <span class="text-brick-red font-bold text-sm mb-1" x-text="project.year"></span>
+                            <h3 class="text-white font-bold text-xl mb-2" x-text="project.name"></h3>
+                            <p class="text-gray-300 text-sm font-light" x-text="project.desc"></p>
+                        </div>
                     </div>
-                </div>
+                </template>
+            </div>
 
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(1)">
-                    <img src="assets/projects/centenario-1.jpg" alt="Grupo Centenario" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>4 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Oficinas Modelo Grupo Centenario</h3>
-                        <p class="text-gray-300 text-sm font-light">Implementación de espacios corporativos modernos.</p>
-                    </div>
+            <div class="flex items-center justify-center gap-4 mt-16 mb-16">
+                <button @click="prevYear()" :disabled="activeYear === years[0]"
+                    :class="activeYear === years[0] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-brick-red hover:text-white'"
+                    class="w-10 h-10 rounded-full bg-gray-100 text-brick-dark flex items-center justify-center transition">
+                    <i class="fas fa-chevron-left text-sm"></i>
+                </button>
+                <div class="flex items-center gap-2 text-sm font-semibold text-brick-dark">
+                    <span>Año:</span>
+                    <select x-model="activeYear"
+                        class="bg-gray-100 border-0 rounded-full px-4 py-2 font-bold text-brick-dark focus:ring-2 focus:ring-brick-red focus:outline-none cursor-pointer appearance-none text-center">
+                        <template x-for="year in years" :key="year">
+                            <option :value="year" x-text="year"></option>
+                        </template>
+                    </select>
+                    <span class="text-gray-400">de <span x-text="years.length"></span></span>
                 </div>
-
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(2)">
-                    <img src="assets/projects/pluz-1.png" alt="Pluz Energia" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>4 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Oficina Pluz Energía SMP</h3>
-                        <p class="text-gray-300 text-sm font-light">Remodelación integral de atención al cliente.</p>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(3)">
-                    <img src="assets/projects/bbva-becs-1.jpg" alt="BBVA BECS" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>3 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Oficinas BECS BBVA</h3>
-                        <p class="text-gray-300 text-sm font-light">Diseño interior y acondicionamiento.</p>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(4)">
-                    <img src="assets/projects/scrum-1.jpg" alt="Proyecto SCRUM" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>3 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Proyecto SCRUM Piso 9 y 10</h3>
-                        <p class="text-gray-300 text-sm font-light">Espacios colaborativos y paneles acústicos.</p>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openLightbox(5)">
-                    <img src="assets/projects/bbva-piso14-1.jpg" alt="Remodelación Piso 14" class="w-full h-80 object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs font-bold"><i class="fas fa-images mr-1"></i>4 fotos</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <span class="text-brick-red font-bold text-sm mb-1">2025</span>
-                        <h3 class="text-white font-bold text-xl mb-2">Remodelación Piso 14 BBVA Sede Central</h3>
-                        <p class="text-gray-300 text-sm font-light">Áreas lounge y espacios de trabajo modernos.</p>
-                    </div>
-                </div>
+                <button @click="nextYear()" :disabled="activeYear === years[years.length - 1]"
+                    :class="activeYear === years[years.length - 1] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-brick-red hover:text-white'"
+                    class="w-10 h-10 rounded-full bg-gray-100 text-brick-dark flex items-center justify-center transition">
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </button>
             </div>
 
             <div x-show="lightboxOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" @click.self="closeLightbox()" @keydown.escape.window="closeLightbox()">
@@ -540,23 +523,48 @@
     </footer>
 
     <script>
+        function range(n) { return Array.from({length: n}, (_, i) => i + 1); }
+        function imgs(year, folder, count) { return range(count).map(i => 'assets/projects/' + year + '/' + folder + '/' + i + '.jpeg'); }
+
         function projectGallery() {
+            const allProjects = [
+                { id: 'y2025-1', year: '2025', name: 'SUM Sede Surco - YMCA', desc: 'Remodelación de salas multifuncionales en colegio YMCA', cover: 'assets/projects/2025/sum-sede-surco-ymca/1.jpeg', images: imgs('2025','sum-sede-surco-ymca',3) },
+                { id: 'y2025-2', year: '2025', name: 'Salonazo Sede Surco - YMCA', desc: 'Remodelación de espacios para talleres de baile y actuación', cover: 'assets/projects/2025/salonazo-sede-surco-ymca/1.jpeg', images: imgs('2025','salonazo-sede-surco-ymca',3) },
+                { id: 'y2025-3', year: '2025', name: 'Oficinas BECS - BBVA', desc: 'Implementación de oficinas y terraza con áreas colaborativas', cover: 'assets/projects/2025/oficinas-becs-bbva/1.jpeg', images: imgs('2025','oficinas-becs-bbva',6) },
+                { id: 'y2025-4', year: '2025', name: 'Oficina SMP - PLUZ ENERGIA', desc: 'Implementación de agencia de atención al público en punto estratégico de Lima Norte', cover: 'assets/projects/2025/oficina-smp-pluz-energia/1.jpeg', images: imgs('2025','oficina-smp-pluz-energia',5) },
+                { id: 'y2025-5', year: '2025', name: 'Ampliación Comedor Sede Central - BBVA', desc: 'Ampliación de comedor de colaboradores de sede central BBVA', cover: 'assets/projects/2025/ampliacion-comedor-sede-central-bbva/1.jpeg', images: imgs('2025','ampliacion-comedor-sede-central-bbva',6) },
+                { id: 'y2025-6', year: '2025', name: 'Comedor Ejecutivos Sede Central - BBVA', desc: 'Implementación de comedor de ejecutivos en sede central BBVA', cover: 'assets/projects/2025/comedor-ejecutivos-sede-central-bbva/1.jpeg', images: imgs('2025','comedor-ejecutivos-sede-central-bbva',2) },
+                { id: 'y2024-1', year: '2024', name: 'Semisótano Paseo el Bosque - ENEL', desc: 'Implementación de auditorio en sede Pluz Energía PDB', cover: 'assets/projects/2024/semisotano-paseo-bosque-enel/1.jpeg', images: imgs('2024','semisotano-paseo-bosque-enel',6) },
+                { id: 'y2024-2', year: '2024', name: 'Centro de Aplicaciones SOLDEXA Arequipa - SENATI', desc: 'Remodelación de nuevos espacios para estudiantes de Senati AQP', cover: 'assets/projects/2024/centro-soldexa-arequipa-senati/1.jpeg', images: imgs('2024','centro-soldexa-arequipa-senati',6) },
+                { id: 'y2024-3', year: '2024', name: 'Piso 14 Sede Central - BBVA', desc: 'Remodelación funcional de oficinas con zonas abiertas y phonebooths privados', cover: 'assets/projects/2024/piso-14-sede-central-bbva/1.jpeg', images: imgs('2024','piso-14-sede-central-bbva',6) },
+                { id: 'y2024-4', year: '2024', name: 'Proyecto SCRUMS Piso 9 y 10 - BBVA', desc: 'Modernización de pisos 9 y 10 con puestos abiertos y áreas colaborativas', cover: 'assets/projects/2024/proyecto-scrums-piso-9-10-bbva/1.jpeg', images: imgs('2024','proyecto-scrums-piso-9-10-bbva',8) },
+                { id: 'y2024-5', year: '2024', name: 'Oficina Huacho - PLUZ ENERGÍA', desc: 'Implementación de oficinas administrativas y áreas colaborativas en Huacho', cover: 'assets/projects/2024/oficina-huacho-pluz-energia/1.jpeg', images: imgs('2024','oficina-huacho-pluz-energia',6) },
+                { id: 'y2023-1', year: '2023', name: 'Oficina Barranco - BBVA', desc: 'Remodelación y reforzamiento estructural en agencia de Lima Top', cover: 'assets/projects/2023/oficina-barranco-bbva/1.jpeg', images: imgs('2023','oficina-barranco-bbva',6) },
+                { id: 'y2023-2', year: '2023', name: 'Oficina Jesús María - BBVA', desc: 'Remodelación de agencia ubicada en Lima Moderna', cover: 'assets/projects/2023/oficina-jesus-maria-bbva/1.jpeg', images: imgs('2023','oficina-jesus-maria-bbva',6) },
+                { id: 'y2023-3', year: '2023', name: 'Oficina Centro Cívico - BBVA', desc: 'Remodelación y reforzamiento estructural en agencia céntrica', cover: 'assets/projects/2023/oficina-centro-civico-bbva/1.jpeg', images: imgs('2023','oficina-centro-civico-bbva',4) },
+                { id: 'y2023-4', year: '2023', name: 'Agencia Next Gen El Polo - BCP', desc: 'Remodelación modelo Next-gen BCP', cover: 'assets/projects/2023/agencia-next-gen-el-polo-bcp/1.jpeg', images: imgs('2023','agencia-next-gen-el-polo-bcp',6) },
+                { id: 'y2023-5', year: '2023', name: 'Oficina Huayruropata Cuzco - BBVA', desc: 'Implementación de oficinas modernas en provincia', cover: 'assets/projects/2023/oficina-huayruropata-cuzco-bbva/1.jpeg', images: imgs('2023','oficina-huayruropata-cuzco-bbva',6) },
+                { id: 'y2022-1', year: '2022', name: 'Oficina Canta Callao - BBVA', desc: 'Remodelación de agencia modelo Aurora', cover: 'assets/projects/2022/oficina-canta-callao-bbva/1.jpeg', images: imgs('2022','oficina-canta-callao-bbva',6) },
+                { id: 'y2022-2', year: '2022', name: 'Oficina Begonias - BBVA', desc: 'Remodelación de agencia en zona financiera', cover: 'assets/projects/2022/oficina-begonias-bbva/1.jpeg', images: imgs('2022','oficina-begonias-bbva',6) },
+                { id: 'y2021-1', year: '2021', name: 'Sótano 1 BBVA', desc: 'Modernización del sótano BBVA: 7500 m² de oficinas y espacios be well.', cover: 'assets/projects/2021/sotano-bbva/1.jpeg', images: imgs('2021','sotano-bbva',16) },
+                { id: 'y2020-1', year: '2020', name: 'Comedor de Loncheras', desc: 'Implementación de comedor de colaboradores', cover: 'assets/projects/2020/comedor-loncheras/1.jpeg', images: imgs('2020','comedor-loncheras',2) },
+                { id: 'y2020-2', year: '2020', name: 'Gran Hall', desc: 'Implementación de hall principal de sede central BBVA', cover: 'assets/projects/2020/gran-hall/1.jpeg', images: imgs('2020','gran-hall',4) },
+            ];
+
             return {
                 lightboxOpen: false,
-                currentProjectIndex: 0,
+                currentProjectId: null,
                 currentImageIndex: 0,
-                projects: [
-                    { name: 'Ampliación Comedor BBVA Sede Central', images: ['assets/projects/bbva-comedor-1.jpg', 'assets/projects/bbva-comedor-2.jpg', 'assets/projects/bbva-comedor-3.jpg', 'assets/projects/bbva-comedor-4.jpg'] },
-                    { name: 'Oficinas Modelo Grupo Centenario', images: ['assets/projects/centenario-1.jpg', 'assets/projects/centenario-2.jpg', 'assets/projects/centenario-3.jpg', 'assets/projects/centenario-4.jpg'] },
-                    { name: 'Oficina Pluz Energía SMP', images: ['assets/projects/pluz-1.png', 'assets/projects/pluz-2.jpg', 'assets/projects/pluz-3.jpg', 'assets/projects/pluz-4.jpg'] },
-                    { name: 'Oficinas BECS BBVA', images: ['assets/projects/bbva-becs-1.jpg', 'assets/projects/bbva-becs-2.jpg', 'assets/projects/bbva-becs-3.jpg'] },
-                    { name: 'Proyecto SCRUM Piso 9 y 10', images: ['assets/projects/scrum-1.jpg', 'assets/projects/scrum-2.jpg', 'assets/projects/scrum-3.jpg'] },
-                    { name: 'Remodelación Piso 14 BBVA Sede Central', images: ['assets/projects/bbva-piso14-1.jpg', 'assets/projects/bbva-piso14-2.jpg', 'assets/projects/bbva-piso14-3.jpg', 'assets/projects/bbva-piso14-4.jpg'] }
-                ],
-                get currentProject() { return this.projects[this.currentProjectIndex]; },
+                activeYear: '2025',
+                years: ['2025','2024','2023','2022','2021','2020'],
+                projects: allProjects,
+                get filteredProjects() { return this.projects.filter(p => p.year === this.activeYear); },
+                get currentProject() { return this.projects.find(p => p.id === this.currentProjectId); },
                 get currentImage() { return this.currentProject?.images[this.currentImageIndex] || ''; },
-                openLightbox(projectIndex) { this.currentProjectIndex = projectIndex; this.currentImageIndex = 0; this.lightboxOpen = true; document.body.style.overflow = 'hidden'; },
+                openLightbox(projectId) { this.currentProjectId = projectId; this.currentImageIndex = 0; this.lightboxOpen = true; document.body.style.overflow = 'hidden'; },
                 closeLightbox() { this.lightboxOpen = false; document.body.style.overflow = ''; },
+                prevYear() { const i = this.years.indexOf(this.activeYear); if (i > 0) this.activeYear = this.years[i - 1]; },
+                nextYear() { const i = this.years.indexOf(this.activeYear); if (i < this.years.length - 1) this.activeYear = this.years[i + 1]; },
                 nextImage() { this.currentImageIndex = this.currentImageIndex < this.currentProject.images.length - 1 ? this.currentImageIndex + 1 : 0; },
                 prevImage() { this.currentImageIndex = this.currentImageIndex > 0 ? this.currentImageIndex - 1 : this.currentProject.images.length - 1; }
             }
